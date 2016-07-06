@@ -50,19 +50,95 @@
 
 \s+                   /* skip whitespace */
 [0-9]+("."[0-9]+)?\b  return 'NUMBER';
-"*"                   return '*';
-"/"                   return '/';
-"-"                   return '-';
-"+"                   return '+';
-"^"                   return '^';
-"!"                   return '!';
-"%"                   return '%';
-"("                   return '(';
-")"                   return ')';
+"*"                   return heavy('*');
+"/"                   return heavy('/');
+"-"                   return heavy('-');
+"+"                   return heavy('+');
+"^"                   return heavy('^');
+"!"                   return heavy('!');
+"%"                   return heavy('%');
+"("                   return heavy('(');
+")"                   return heavy(')');
 "PI"                  return 'PI';
-"E"                   return 'E';
+"E"                   return heavy('E');
 <<EOF>>               return 'EOF';
 .                     return 'INVALID';
+
+
+%% 
+
+// just load the CPU for a while:
+function heavy(s) {
+    var flip = [s, s];
+    for (var i = 0, len = 1000; i < len; i++) {
+        flip[i % 2] = flip[(i + 1) % 2] + s;
+    }
+    return flip[0][flip[0].length - 1];
+}
+
+var original_lex_f = lexer.lex;
+
+lexer.lex = function () {
+    if (this._input && 01) {
+        var match = this._input[0];
+        switch (match) {
+        case "*":
+        case "/":
+        case "-":
+        case "+":
+        case "^":
+        case "!":
+        case "%":
+        case "(":
+        case ")":
+            //console.log('fast track for: ', match);
+
+            //this.yylineno += lines.length;
+            this.yylloc.first_column = this.yylloc.last_column;
+            this.yylloc.last_column++;
+            this.yytext += match;
+            this.match += match;
+            //this.matches = [match];
+            this.yyleng = this.yytext.length;
+            if (this.options.ranges) {
+                this.yylloc.range[1] = this.offset + this.yyleng;
+            }
+            this.offset++;
+            this._more = false;
+            this._backtrack = false;
+            this._input = this._input.slice(1);
+            this.matched += match;
+            //token = this.performAction.call(this, this.yy, this, indexed_rule, this.conditionStack[this.conditionStack.length - 1]);
+            if (this.done && this._input) {
+                this.done = false;
+            }
+            return match;
+
+        case "π":
+            //this.yylineno += lines.length;
+            this.yylloc.first_column = this.yylloc.last_column;
+            this.yylloc.last_column++;
+            this.yytext += match;
+            this.match += match;
+            //this.matches = [match];
+            this.yyleng = this.yytext.length;
+            if (this.options.ranges) {
+                this.yylloc.range[1] = this.offset + this.yyleng;
+            }
+            this.offset++;
+            this._more = false;
+            this._backtrack = false;
+            this._input = this._input.slice(1);
+            this.matched += match;
+            //token = this.performAction.call(this, this.yy, this, indexed_rule, this.conditionStack[this.conditionStack.length - 1]);
+            if (this.done && this._input) {
+                this.done = false;
+            }
+            return 'PI';
+        }
+    }
+    return original_lex_f.call(this);
+};
 
 /lex
 
