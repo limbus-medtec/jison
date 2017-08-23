@@ -36,7 +36,7 @@
     "node": ">=4.0"
   },
   "dependencies": {
-    "ebnf-parser": "git://github.com/GerHobbelt/ebnf-parser#0.1.10-186",
+    "ebnf-parser": "git://github.com/GerHobbelt/ebnf-parser#eb709578e126dd3c04b1c20062c3e5340612f726",
     "jison-lex": "git://github.com/GerHobbelt/jison-lex#0.3.4-186",
     "lex-parser": "git://github.com/GerHobbelt/lex-parser#0.1.4-186",
     "recast": "git://github.com/GerHobbelt/recast#0.12.7-2",
