@@ -36,15 +36,15 @@
     "node": ">=4.0"
   },
   "dependencies": {
-    "ebnf-parser": "github:GerHobbelt/ebnf-parser#master",
-    "jison-lex": "github:GerHobbelt/jison-lex#master",
-    "lex-parser": "github:GerHobbelt/lex-parser#master",
-    "recast": "github:GerHobbelt/recast#master",
-    "ast-util": "github:GerHobbelt/ast-util#master",
-    "jscodeshift": "github:GerHobbelt/jscodeshift#master",
-    "json5": "github:GerHobbelt/json5#master",
+    "ebnf-parser": "github:GerHobbelt/ebnf-parser#0.1.10-186",
+    "jison-lex": "github:GerHobbelt/jison-lex#0.3.4-186",
+    "lex-parser": "github:GerHobbelt/lex-parser#0.1.4-186",
+    "recast": "github:GerHobbelt/recast#0.12.7-2",
+    "ast-util": "github:GerHobbelt/ast-util#0.6.0",
+    "jscodeshift": "github:GerHobbelt/jscodeshift#0.3.31",
+    "json5": "github:GerHobbelt/json5#0.5.1-18",
     "@gerhobbelt/nomnom": "1.8.4-16",
-    "xregexp": "github:GerHobbelt/xregexp#master"
+    "xregexp": "github:GerHobbelt/xregexp#3.2.0"
   },
   "devDependencies": {
     "browserify": "14.4.0",
